@@ -1,11 +1,25 @@
 import * as express from 'express';
 import { Mongoose } from 'mongoose';
 import { ApolloServer, PubSub } from 'apollo-server-express';
+import { ContextFunction, Context } from 'apollo-server-core';
 import { db as DB } from './utils';
 import { schema } from './schema';
 import { exit } from 'process';
 
+interface ExpressContext {
+  req: express.Request;
+  res: express.Response;
+}
+
 const db = DB();
+
+const maybeGetuserIpAddress = (request: express.Request): string | null => {
+  const headers = request.headers;
+  if (!headers) return null;
+  const ipAddress = headers['x-forwarded-for'];
+  if (!ipAddress) return null;
+  return ipAddress as string;
+};
 
 db.connect()
   .then((dbClient: Mongoose | undefined) => {
@@ -15,7 +29,13 @@ db.connect()
       const server = new ApolloServer({
         schema,
         playground: process.env.NODE_ENV !== 'PROD',
-        context: { db: dbClient, pubsub },
+        context: (context: any) => {
+          return {
+            db: dbClient,
+            pubsub,
+            requestIp: context.req.ip,
+          };
+        },
         introspection: true,
         engine: {
           debugPrintReports: true,

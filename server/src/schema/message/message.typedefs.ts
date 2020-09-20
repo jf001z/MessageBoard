@@ -10,10 +10,8 @@ export const messageGqlTypes = gql`
   }
   input UpsertOneMessageInput {
     _id: String
-    title: String
-    content: String
-    ip: String
-    create_time: Float
+    title: String!
+    content: String!
   }
   enum GetMessageFilter {
     TODAY

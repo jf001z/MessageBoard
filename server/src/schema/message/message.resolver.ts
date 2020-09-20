@@ -41,10 +41,13 @@ export const messageResolver = {
   Mutation: {
     upsertOneMessage: async (
       _: unknown,
-      { message }: { message: Message },
-      { pubsub }: { pubsub: PubSub },
+      { message }: { message: Partial<Message> },
+      { pubsub, requestIp }: { pubsub: PubSub; requestIp: string },
     ): Promise<{ recordId: string }> => {
-      const savedMessage = await messageModel.upsertOneMessage(message);
+      const savedMessage = await messageModel.upsertOneMessage({
+        ...message,
+        ip: requestIp,
+      } as Partial<Message>);
       pubsub.publish('latestMessage', { message: savedMessage });
       return { recordId: savedMessage._id };
     },
