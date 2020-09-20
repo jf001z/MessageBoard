@@ -1,0 +1,20 @@
+version: "3.1"
+
+services:
+  mongoDb:
+    image: "mongo:latest"
+    container_name: MessageBoardDB
+    environment:
+      - MONGO_INITDB_DATABASE=message-board
+      - MONGO_INITDB_ROOT_USERNAME=messageBoard
+      - MONGO_INITDB_ROOT_PASSWORD=messageBoard
+    volumes:
+      - ./mongoDb/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    ports:
+      - "27018:27017"
+  #   container_name: NectarMysql
+  #   build:
+  #     context: .
+  #     dockerfile: mysql/Dockerfile
+  #   volumes:
+  #     - ./mysql/conf.d:/etc/mysql/conf.d
