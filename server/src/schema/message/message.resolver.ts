@@ -9,6 +9,18 @@ enum GetMessageFilter {
 }
 
 export const messageResolver = {
+  Subscription: {
+    subscribeLatestMessage: {
+      resolve: async ({ message }: { message: Message }): Promise<Message> => {
+        console.log('subscribeLatestMessage: ', message);
+        return message;
+      },
+      subscribe: (_: any, __: any, { pubsub }: { pubsub: PubSub }) => {
+        console.log(pubsub);
+        return pubsub.asyncIterator('subscribeLatestMessage');
+      },
+    },
+  },
   Query: {
     getMessages: async (
       _: unknown,
@@ -48,17 +60,10 @@ export const messageResolver = {
         ...message,
         ip: requestIp,
       } as Partial<Message>);
-      pubsub.publish('latestMessage', { message: savedMessage });
+      pubsub.publish('subscribeLatestMessage', {
+        message: savedMessage,
+      });
       return { recordId: savedMessage._id };
-    },
-  },
-  Subscription: {
-    subscribeLatestMessage: {
-      resolve: async ({ message }: { message: Message }): Promise<Message> => {
-        return message;
-      },
-      subscribe: (_: any, __: any, { pubsub }: { pubsub: PubSub }) =>
-        pubsub.asyncIterator<Message>(['latestMessage']),
     },
   },
 };

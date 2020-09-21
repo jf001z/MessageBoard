@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { ApolloProvider } from '@apollo/react-hooks';
+import { ApolloProvider } from '@apollo/client';
 import { client } from './utils';
 // import { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router } from 'react-router-dom';

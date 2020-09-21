@@ -11,3 +11,23 @@ export const GetMessage = gql`
     }
   }
 `;
+
+export const UpsertMessage = gql`
+  mutation upsertMessage($message: UpsertOneMessageInput) {
+    upsertOneMessage(message: $message) {
+      recordId
+    }
+  }
+`;
+
+export const RealTimeMessageUpdate = gql`
+  subscription subscribeLatestMessage {
+    subscribeLatestMessage {
+      _id
+      title
+      ip
+      content
+      create_time
+    }
+  }
+`;

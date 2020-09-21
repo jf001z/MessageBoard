@@ -1,7 +1,8 @@
 import * as express from 'express';
+import * as http from 'http';
 import { Mongoose } from 'mongoose';
-import { ApolloServer, PubSub } from 'apollo-server-express';
-import { ContextFunction, Context } from 'apollo-server-core';
+import { ApolloServer } from 'apollo-server-express';
+import { PubSub } from 'graphql-subscriptions';
 import { db as DB } from './utils';
 import { schema } from './schema';
 import { exit } from 'process';
@@ -29,34 +30,41 @@ db.connect()
       const server = new ApolloServer({
         schema,
         playground: process.env.NODE_ENV !== 'PROD',
-        context: (context: any) => {
+        context: ({ req, connection }) => {
           return {
             db: dbClient,
             pubsub,
-            requestIp: context.req.ip,
+            requestIp: req.ip,
           };
         },
         introspection: true,
         engine: {
           debugPrintReports: true,
         },
-        // subscriptions: {
-        //   onConnect: (connectionParams, webSocket, context) => {
-        //     // ...
-        //   },
-        //   onDisconnect: (webSocket, context) => {
-        //     // ...
-        //   },
-        // },
+        subscriptions: {
+          onConnect: () => {
+            // ...
+            console.log('connected to WS');
+          },
+          onDisconnect: () => {
+            // ...
+            console.log('disconnected to WS');
+          },
+        },
       });
       server.applyMiddleware({ app });
+
+      const httpServer = http.createServer(app);
+      server.installSubscriptionHandlers(httpServer);
       const PORT = 4000;
 
-      app.listen(PORT, () => {
+      httpServer.listen(PORT, () => {
         // eslint-disable-next-line no-console
         console.log(
           `Server is running in http://localhost:${PORT}${server.graphqlPath}`,
         );
+        const subPath = server.subscriptionsPath;
+        console.log(`Subscriptions are at ws://localhost:${PORT}${subPath}`);
       });
     } else {
       // eslint-disable-next-line no-console

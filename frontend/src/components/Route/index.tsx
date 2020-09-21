@@ -1,18 +1,16 @@
 import React, { FC } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Routes } from '../../constants';
-import { Team } from '../Team';
-import { Test } from '../Trial';
-import { Task } from '../Task';
+import { Home } from '../Home';
 
 export const MainRoute: FC = () => {
   return (
     <Switch>
       <Route path={Routes.Home}>
-        <Test />
+        <Home />
       </Route>
       <Route path="*">
-        <div>not match</div>
+        <div>page not found</div>
       </Route>
     </Switch>
   );

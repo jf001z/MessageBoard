@@ -19,13 +19,13 @@ export const messageGqlTypes = gql`
     MONTH
     ALL
   }
+  type Subscription {
+    subscribeLatestMessage: Message
+  }
   type Query {
     getMessages(filter: GetMessageFilter!): [Message]!
   }
   type Mutation {
     upsertOneMessage(message: UpsertOneMessageInput): IdOutputType
-  }
-  type Subscription {
-    subscribeLatestMessage: Message
   }
 `;
