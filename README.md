@@ -70,10 +70,13 @@ If the api server is running ok, open another cmd window and going into frontend
 
 `http://localhost:3030`
 
-and the page is like this and it is using websocket to live update the latest message:
+and the page is like this:
 
 
 ![basic_layout](https://github.com/jf001z/MessageBoard/blob/master/images/basic_layout.gif)
+
+
+It is using websocket to live update the latest message, the performance is like this:
 
 
 ![basic_layout](https://github.com/jf001z/MessageBoard/blob/master/images/websocket.gif)
