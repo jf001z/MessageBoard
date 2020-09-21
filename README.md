@@ -1,6 +1,6 @@
 # Message Board
 
-This Message Board using Material-UI, Material-Table in front end and express, graphql, MongoDB in backend, The app is using websocket to live update the latest message.
+This Message Board using Material-UI, Material-Table in front end and express, graphql, MongoDB, docker and docker-compose in backend, The app is using websocket to live update the latest message.
 
 # Required Apps
 
