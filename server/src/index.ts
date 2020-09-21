@@ -34,7 +34,7 @@ db.connect()
           return {
             db: dbClient,
             pubsub,
-            requestIp: req.ip,
+            requestIp: req?.ip,
           };
         },
         introspection: true,

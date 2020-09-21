@@ -35,22 +35,21 @@ export const DisplayArea: FC = () => {
 
   useSubscription(RealTimeMessageUpdate, {
     onSubscriptionData: ({ client, subscriptionData: { data } }) => {
-      console.log(data);
       if (!data) return;
-      const allData: { getMessage: Message[] } = client.readQuery({
+      const allData: { getMessages: Message[] } = client.readQuery({
         query: GetMessage,
         variables: { filter: displayRule },
-      }) as { getMessage: [Message] };
+      }) as { getMessages: Message[] };
+      console.log(allData);
       const allMessages = [
-        ...allData.getMessage,
         data?.subscribeLatestMessage,
-      ] as [Message];
-      allData.getMessage = allMessages;
+        ...allData.getMessages,
+      ] as Message[];
       // update cache
       client.writeQuery({
         query: GetMessage,
         variables: { filter: displayRule },
-        data: allData,
+        data: { getMessages: allMessages },
       });
     },
   });

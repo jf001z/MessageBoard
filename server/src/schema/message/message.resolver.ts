@@ -11,12 +11,11 @@ enum GetMessageFilter {
 export const messageResolver = {
   Subscription: {
     subscribeLatestMessage: {
-      resolve: async ({ message }: { message: Message }): Promise<Message> => {
-        console.log('subscribeLatestMessage: ', message);
+      resolve: ({ message }: { message: Message }): Message => {
+        console.log('subscribeLatestMessage: ', message._id);
         return message;
       },
       subscribe: (_: any, __: any, { pubsub }: { pubsub: PubSub }) => {
-        console.log(pubsub);
         return pubsub.asyncIterator('subscribeLatestMessage');
       },
     },
