@@ -54,7 +54,7 @@ Then inside folder server, run 'yarn dev' to start the api server. The api is us
 
 it will be like this:
 
-![graphql playgound](https://github.com/jf001z/ToDoList/blob/master/images/graphql.png)
+![graphql playgound](https://github.com/jf001z/MessageBoard/blob/master/images/graphql.png)
 
 # Run Frontend Server
 
@@ -66,13 +66,17 @@ to install modules, then run
 
 `yarn dev`
 
-This will start the frontend server, you can see the page using following url:
-
 If the api server is running ok, open another cmd window and going into frontend folder, run `yarn` to install modules, then run `yarn dev`. This will start the frontend server, you can see the page using following url:
 
 `http://localhost:3030`
 
 and the page is like this and it is using websocket to live update the latest message:
+
+
+![basic_layout](https://github.com/jf001z/MessageBoard/blob/master/images/basic_layout.gif)
+
+
+![basic_layout](https://github.com/jf001z/MessageBoard/blob/master/images/websocket.gif)
 
 The app worked and tested on Mac system. I didn't test it on windows, because I don't have window pc.
 
