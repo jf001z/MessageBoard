@@ -7,7 +7,7 @@ import {
   Button,
 } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { UpsertMessage, GetMessage } from '../../graphql';
+import { UpsertMessage } from '../../graphql';
 
 const useStyle = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,9 +53,7 @@ export const InputArea: FC = () => {
   const classes = useStyle();
   const [title, setTitle] = useState<string | null>(null);
   const [content, setContent] = useState<string | null>(null);
-  const [upsertMessage, { data, error }] = useMutation(UpsertMessage, {
-    refetchQueries: ['GetMessage'],
-  });
+  const [upsertMessage, { data, error }] = useMutation(UpsertMessage);
   const titleUpateHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
   };

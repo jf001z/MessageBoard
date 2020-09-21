@@ -1,6 +1,6 @@
-# ToDoList
+# Message Board
 
-This ToDoList using Material-UI, Material-Table in front end and graphql, MongoDB in backend
+This Message Board using Material-UI, Material-Table in front end and express, graphql, MongoDB in backend, The app is using websocket to live update the latest message.
 
 # Required Apps
 
@@ -16,37 +16,27 @@ In order to run this app locally, following apps have to be installed.
 
 First run following command to download the project:
 
-`git clone https://github.com/jf001z/ToDoList.git`
+`git clone https://github.com/jf001z/MessageBoard`
+
+Then
+
+`cd MessageBoard`
 
 Then run following command:
 
 `docker ps -a`
 
-To check if any exist docker container using port 27018, if it is ocupied please stop that container by
+To check if any exist docker container using port 27018, if it is occupied please stop that container by
 
 `docker stop you_container_name`.
 
-Then go into nectar folder by
-
-`cd ToDoList`
-
 and run following command to install database container:
-
-To check if any exist docker container using port 27018, if it is ocupied please stop that container by `docker stop you_container_name`.
-
-Then go into nectar folder by `cd ToDoList` and run following command to install database container:
 
 `docker-compose up -d`
 
-This app is using MongoDB as the database, by running above command a MongoDB container will be created automatically. The container is like this:
-
-![MongoDB container](https://github.com/jf001z/ToDoList/blob/master/images/docker.png)
-
-To check if the database installed successfully, you can use MongoDB Compass to connect to the db to check if a new db `todo-list` is created. The connection string for MongoDB Compass is 'mongodb://todolist:todolist@localhost:27018/todolist?authSource=admin&readPreference=primary&appname=MongoDB%20Compass%20Community&ssl=false'. The user name and password can be found in file docker-compose.yml.
-
 # Create Test Data
 
-After db is setup, go into server folder `cd server` inside folder `ToDoList`. Then run
+After db is setup, go into server folder `cd server` inside folder `MessageBoard`. Then run
 
 `yarn`
 
@@ -54,28 +44,17 @@ to install depending modules. Then run
 
 `yarn generateTestData`
 
-to create test data. You can check if the test data has been created on Compass, should be like this:
-
-After db is setup, go into server folder `cd server` inside folder `ToDoList`. Then run 'yarn generateTestData' to create test data. You can check if the test data has been created on Compass, should be like this:
-
-![MongoDB Compass](https://github.com/jf001z/ToDoList/blob/master/images/MongoDB_Compass.png)
+to create test data. You can check if the test data has been created on Compass:
 
 # Run Api Server
 
-Then run 'yarn dev' to start the api server. The api is using epxress and graphql. You can check the server by visit following url
-
-Then inside server folder, run `yarn` to install depending modules. Then run 'yarn dev' to start the api server. The api is using epxress and graphql. You can check the server by visit following url
-
+Then inside folder server, run 'yarn dev' to start the api server. The api is using epxress and graphql. You can check the server by visit following url
 
 `http://localhost:4000/graphql`
 
 it will be like this:
 
 ![graphql playgound](https://github.com/jf001z/ToDoList/blob/master/images/graphql.png)
-
-You can try some query and mutations, it will be like this:
-
-![graphql playgound gif](https://github.com/jf001z/ToDoList/blob/master/images/backend.gif)
 
 # Run Frontend Server
 
@@ -91,21 +70,16 @@ This will start the frontend server, you can see the page using following url:
 
 If the api server is running ok, open another cmd window and going into frontend folder, run `yarn` to install modules, then run `yarn dev`. This will start the frontend server, you can see the page using following url:
 
-
 `http://localhost:3030`
 
-and the page is like this:
-
-![dashboard page](https://github.com/jf001z/ToDoList/blob/master/images/screen01.png)
-
-![web animation](https://github.com/jf001z/ToDoList/blob/master/images/frontend.gif)
+and the page is like this and it is using websocket to live update the latest message:
 
 The app worked and tested on Mac system. I didn't test it on windows, because I don't have window pc.
 
 # Things needs to be improved
 
-1. This app is using material table, but from the performance in this app, I'm not quite satisfied with it. So next step is to change it by react table.
+1. Layout needs to be improved with better design.
 
-1. Currently in front end only fetch data are working, I don't have time to do the push data part like add, update, delete. These will be done in the next step.
+1. Have no time to write the Unit test. If have more time, will do it.
 
-1. Apollo Graphql is used in the app and it provides subscription function which uses websocket protocol to do server to client broadcast, this tech will be used in the next step to do data live update on client side.
+1. more functions needs to be added to the message list like sort, pagination.

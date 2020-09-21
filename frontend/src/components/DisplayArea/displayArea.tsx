@@ -40,7 +40,6 @@ export const DisplayArea: FC = () => {
         query: GetMessage,
         variables: { filter: displayRule },
       }) as { getMessages: Message[] };
-      console.log(allData);
       const allMessages = [
         data?.subscribeLatestMessage,
         ...allData.getMessages,

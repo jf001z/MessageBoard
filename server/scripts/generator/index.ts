@@ -9,7 +9,7 @@ const db = DB();
 db.connect()
   .then(async (dbClient: Mongoose | undefined) => {
     if (dbClient) {
-      const messageCount = 100;
+      const messageCount = 300;
 
       try {
         const savedMessageIds = await generateMessages(messageCount);
